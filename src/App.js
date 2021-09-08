@@ -1,5 +1,6 @@
 import axios from "axios";
 import React from "react";
+import Weather from "./Weather";
 
 class App extends React.Component {
   constructor(props) {
@@ -13,11 +14,31 @@ class App extends React.Component {
       displayErr: false,
     };
   }
+
+  getWeatherData = async (cityName) => {
+    let weatherURL = `http://localhost:3010/weather?cityname=${cityName}`;
+    try {
+      if (
+        cityName === "Amman" ||
+        cityName === "Paris" ||
+        cityName === "Seattle"
+      ) {
+        let weatherData = await axios.get(weatherURL);
+        this.setState({});
+      }
+    } catch {
+      console.log("err");
+      this.setState({
+        displayErr: true,
+      });
+    }
+  };
+
   getData = async (event) => {
     event.preventDefault();
     let cityName = event.target.cityName.value;
     let myKey = this.state.REACT_APP_LOCATION;
-    let url = `https://eu1.locationiq.com/v1/search.php?key=${myKey}&q=${cityName}&format=json`;
+    let url = `https://us1.locationiq.com/v1/search.php?key=${myKey}&q=${cityName}&format=json`;
     try {
       let result = await axios.get(url);
       console.log(result.data);
@@ -27,6 +48,21 @@ class App extends React.Component {
         displayName: result.data[0].display_name,
         mapFlag: true,
       });
+
+      try {
+        let result2 = await axios.get(
+          `http://localhost:3010/weather?lat=${result.data[0].lat}&lon=${result.data[0].lon}`
+        );
+
+        this.setState({ weatherData: result2.data });
+
+        console.log(JSON.stringify(result2.data));
+      } catch {
+        console.log("err22");
+        this.setState({
+          displayErr: true,
+        });
+      }
     } catch {
       console.log("err");
       this.setState({
@@ -45,13 +81,17 @@ class App extends React.Component {
         <p>Display Name: {this.state.displayName} </p>
         <p>Lat: {this.state.lat} </p>
         <p>Lon: {this.state.lon} </p>
-
         {this.state.mapFlag && (
           <img
             src={`https://maps.locationiq.com/v3/staticmap?key=${this.state.REACT_APP_LOCATION}&center=${this.state.lat},${this.state.lon}`}
             alt="map"
           />
         )}
+        <h1>Weather</h1>
+        {this.state.weatherData &&
+          this.state.weatherData.map(function (w, i) {
+            return <Weather date={w.date} description={w.description} />;
+          })}
         {this.state.displayErr && <p>Sorry Error</p>}
       </>
     );
