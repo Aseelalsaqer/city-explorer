@@ -12,6 +12,7 @@ class App extends React.Component {
       displayName: "",
       mapFlag: false,
       displayErr: false,
+      
     };
   }
 
@@ -24,7 +25,9 @@ class App extends React.Component {
         cityName === "Seattle"
       ) {
         let weatherData = await axios.get(weatherURL);
-        this.setState({});
+        this.setState({
+          weatherData: weatherData.data
+        });
       }
     } catch {
       console.log("err");
