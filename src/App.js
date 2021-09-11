@@ -40,7 +40,7 @@ class App extends React.Component {
     event.preventDefault();
     let cityName = event.target.cityName.value;
     let myKey = process.env.REACT_APP_LOCATION;
-    let url = `https://us1.locationiq.com/v1/search.php?key=pk.4685a6f108404889894bc3b6c6b50909&q=${cityName}&format=json`;
+    let url = `https://us1.locationiq.com/v1/search.php?key=${myKey}&q=${cityName}&format=json`;
     try {
       let result = await axios.get(url);
       console.log(result.data);
@@ -85,7 +85,7 @@ class App extends React.Component {
         <p>Lon: {this.state.lon} </p>
         {this.state.mapFlag && (
           <img
-            src={`https://maps.locationiq.com/v3/staticmap?key=${this.state.REACT_APP_LOCATION}&center=${this.state.lat},${this.state.lon}`}
+            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION}&center=${this.state.lat},${this.state.lon}`}
             alt="map"
           />
         )}
