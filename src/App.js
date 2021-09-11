@@ -85,7 +85,7 @@ class App extends React.Component {
         <p>Lon: {this.state.lon} </p>
         {this.state.mapFlag && (
           <img
-            src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION}&center=${this.state.lat},${this.state.lon}`}
+            src={`https://maps.locationiq.com/v3/staticmap?key=pk.43fed3791d35ddb76aa14f749c6d3080&center=${this.state.lat},${this.state.lon}`}
             alt="map"
           />
         )}
