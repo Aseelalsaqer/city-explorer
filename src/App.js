@@ -6,7 +6,6 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      REACT_APP_LOCATION: process.env.REACT_APP_LOCATION,
       lat: "",
       lon: "",
       displayName: "",
@@ -41,7 +40,7 @@ class App extends React.Component {
     event.preventDefault();
     let cityName = event.target.cityName.value;
     let myKey = process.env.REACT_APP_LOCATION;
-    let url = `https://us1.locationiq.com/v1/search.php?key=${myKey}&q=${cityName}&format=json`;
+    let url = `https://us1.locationiq.com/v1/search.php?key=pk.4685a6f108404889894bc3b6c6b50909&q=${cityName}&format=json`;
     try {
       let result = await axios.get(url);
       console.log(result.data);
