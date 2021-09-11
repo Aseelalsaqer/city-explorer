@@ -15,26 +15,26 @@ class App extends React.Component {
     };
   }
 
-  getWeatherData = async (cityName) => {
-    let weatherURL = `http://localhost:3010/weather?cityname=${cityName}`;
-    try {
-      if (
-        cityName === "Amman" ||
-        cityName === "Paris" ||
-        cityName === "Seattle"
-      ) {
-        let weatherData = await axios.get(weatherURL);
-        this.setState({
-          weatherData: weatherData.data
-        });
-      }
-    } catch {
-      console.log("err");
-      this.setState({
-        displayErr: true,
-      });
-    }
-  };
+  // getWeatherData = async (lat,lon) => {
+  //   let weatherURL = `https://aseel-city.herokuapp.com/weather?lat=${lat}&lon=${lon}`;
+  //   try {
+  //     if (
+  //       cityName === "Amman" ||
+  //       cityName === "Paris" ||
+  //       cityName === "Seattle"
+  //     ) {
+  //       let weatherData = await axios.get(weatherURL);
+  //       this.setState({
+  //         weatherData: weatherData.data
+  //       });
+  //     }
+  //   } catch {
+  //     console.log("err");
+  //     this.setState({
+  //       displayErr: true,
+  //     });
+  //   }
+  // };
 
   getData = async (event) => {
     event.preventDefault();
