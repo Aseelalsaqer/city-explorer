@@ -35,7 +35,22 @@ class App extends React.Component {
   //     });
   //   }
   // };
+getWeatherData = async(lat,lon)=>{
+  try {
+    let result2 = await axios.get(
+      `https://aseel-city.herokuapp.com/weather?lat=${lat}&lon=${lon}`
+    );
 
+    this.setState({ weatherData: result2.data });
+
+    console.log(JSON.stringify(result2.data));
+  } catch {
+    console.log("err22");
+    this.setState({
+      displayErr: true,
+    });
+  }
+}
   getData = async (event) => {
     event.preventDefault();
     let cityName = event.target.cityName.value;
@@ -50,21 +65,8 @@ class App extends React.Component {
         displayName: result.data[0].display_name,
         mapFlag: true,
       });
-
-      try {
-        let result2 = await axios.get(
-          `https://aseel-city.herokuapp.com/weather?lat=${result.data[0].lat}&lon=${result.data[0].lon}`
-        );
-
-        this.setState({ weatherData: result2.data });
-
-        console.log(JSON.stringify(result2.data));
-      } catch {
-        console.log("err22");
-        this.setState({
-          displayErr: true,
-        });
-      }
+      this.getWeatherData(this.state.lat,this.state.lon);
+      
     } catch {
       console.log("err");
       this.setState({
