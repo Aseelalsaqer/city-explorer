@@ -40,7 +40,7 @@ class App extends React.Component {
   getData = async (event) => {
     event.preventDefault();
     let cityName = event.target.cityName.value;
-    let myKey = this.state.REACT_APP_LOCATION;
+    let myKey = process.env.REACT_APP_LOCATION;
     let url = `https://us1.locationiq.com/v1/search.php?key=${myKey}&q=${cityName}&format=json`;
     try {
       let result = await axios.get(url);
