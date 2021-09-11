@@ -54,7 +54,7 @@ class App extends React.Component {
 
       try {
         let result2 = await axios.get(
-          `http://localhost:3010/weather?lat=${result.data[0].lat}&lon=${result.data[0].lon}`
+          `https://aseel-city.herokuapp.com/weather?lat=${result.data[0].lat}&lon=${result.data[0].lon}`
         );
 
         this.setState({ weatherData: result2.data });
